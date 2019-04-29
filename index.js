@@ -34,7 +34,7 @@ const updateScore = async (req, res) => {
 
 module.exports = cors(
     router(
-        put('./user', updateScore),
+        put('/user/:id', updateScore),
         post('/user', createUser),
         get('/questions', getQuestions),
         get('/user', getUser),
