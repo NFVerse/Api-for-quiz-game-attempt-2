@@ -1,5 +1,5 @@
 const { send, json } = require('micro')
-const { router, get, post, put } = require('microrouter')
+const { router, get, post, put, del } = require('microrouter')
 const cors = require('micro-cors')()
 const notfound = (req, res) => send(res, 404, 'Not found route')
  
@@ -31,9 +31,15 @@ const updateScore = async (req, res) => {
     const results = await users.update({ _id: req.params.id }, data);
     return send(res, 200, results)
 }
+const deleteUser = async (req, res) => {
+    console.log("req", req)
+    const results = await users.remove({_id: req.params.id })
+    return send(res, 200, results)
+}
 
 module.exports = cors(
     router(
+        del('/user/:id', deleteUser),
         put('/user/:id', updateScore),
         post('/user', createUser),
         get('/questions', getQuestions),
